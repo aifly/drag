@@ -3,8 +3,43 @@
 <head>
 	<meta charset="UTF-8">
 	<title>拖拽的项目</title>
+	<style>
+		*{margin:0;padding: 0;}
+		#box{
+			width:200px;
+			height: 200px;
+			background: red;
+			position:absolute;
+			left: 0;
+			top: 0;
+		}
+	</style>
 </head>
 <body>
-	<h1>一个拖拽的项目。</h1>
+	<div id='box'>
+		被拖拽的层
+	</div>
+	<script>
+
+		var box = document.getElementById('box');
+
+		//box.isDown  = false;
+		box.onmousedown = function(e){
+			e.preventDefault();
+			box.isDown  = true;
+			this.disX = e.pageX - this.offsetLeft;
+			this.disY = e.pageY - this.offsetTop;
+		}
+		document.onmousemove = function(e){
+			if(box.isDown){
+				box.style.left = e.pageX - box.disX +'px';
+				box.style.top = e.pageY - box.disY + 'px';
+			};
+		}
+		document.onmouseup = function(){
+			box.isDown  = false;
+		}
+
+	</script>
 </body>
 </html>
